@@ -10,26 +10,61 @@
 
 <h1>Etch-a-Sketch</h1>
 
-<div id="container">
-
+<button type="button" id="reset">Reset</button>
+<div class="container">
 </div>
 <script>
-// create divs
-let container = document.querySelector('#container');
-let div = document.createElement('div');
 
-for (let i = 0; i < 100; i++) {
-  let div = document.createElement('div');
-  div.className="inner";
-  container.appendChild(div)
+
+// Create grid
+function createGrid(divWidth=10) {
+  let containerWidth = 800;
+  let container = document.querySelector('.container');
+  container.style.width = `${containerWidth}px`;
+  container.style["grid-template-columns"] = `repeat(${divWidth}, ${containerWidth/divWidth}px)`;
+  container.style["grid-template-rows"] = `repeat(${divWidth}, ${containerWidth/divWidth}px)`;
+
+  for (let i = 0; i < (divWidth * divWidth) ; i++) {
+    let div = document.createElement('div');
+    div.className = "inner";
+    div.style["border"] = "1px solid #cccccc"
+    container.appendChild(div)
+
+  const innerDiv = document.getElementsByClassName('inner');
+    Array.from(innerDiv).forEach(div => div.addEventListener("mouseover", () => {
+      div.style["background-color"] = 'black';
+    }));
+  }
 }
 
-// change color of all inner divs
-const innerDiv = document.getElementsByClassName('inner');
-Array.from(innerDiv).forEach(div => div.addEventListener("mouseover", () => {
-    div.style["background-color"] = "black";
-  }));
 
+
+// Reset Button
+function reset() {
+  let innerDiv = document.getElementsByClassName('inner');
+  Array.from(innerDiv).forEach(div => div.remove());
+  let newSize = parseInt(prompt("Enter a new size between 1 and 100:"));
+  promptForGridSize(newSize);
+}
+
+let resetButton = document.getElementById("reset")
+resetButton.addEventListener('click', reset)
+
+
+// Prompt for New Grid Size
+let promptForGridSize = (num) => {
+  // validate number, no larger than 100
+  if (num > 100 || num < 1 || isNaN(num)) {
+    alert("Invalid entry, enter a new size between 1 and 100");
+    createGrid(10)
+  } else {
+    createGrid(num)
+  };
+};
+
+
+// App: Create Grid
+createGrid(10)
 
 
 </script>
