@@ -1,6 +1,6 @@
 // Create grid
 function createGrid(divWidth = 10) {
-  const containerWidth = 800; // constant
+  const containerWidth = 600; // constant
   let container = document.querySelector('.container');
   container.style.width = `${containerWidth}px`;
   container.style["grid-template-columns"] = `repeat(${divWidth}, ${containerWidth / divWidth}px)`;
