@@ -30,19 +30,20 @@ function createGrid(divWidth=10) {
     div.style["border"] = "1px solid #cccccc"
     container.appendChild(div)
 
-  const innerDiv = document.getElementsByClassName('inner');
+  let innerDiv = document.querySelectorAll('.inner');
     Array.from(innerDiv).forEach(div => div.addEventListener("mouseover", () => {
       div.style["background-color"] = 'black';
     }));
   }
 }
 
-
-
 // Reset Button
 function reset() {
-  let innerDiv = document.getElementsByClassName('inner');
-  Array.from(innerDiv).forEach(div => div.remove());
+  let innerDiv = document.querySelectorAll('.container :not(.a)');
+  for (let i = 0; i < innerDiv.length; i++) {
+    innerDiv[i].parentNode.removeChild(innerDiv[i]);
+  }
+  //Array.from(innerDiv).forEach(div => div.remove());
   let newSize = parseInt(prompt("Enter a new size between 1 and 100:"));
   promptForGridSize(newSize);
 }
